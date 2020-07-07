@@ -1,0 +1,61 @@
+print("H A N G M A N")
+print('Type "play" to play the game, "exit" to quit: ')
+import random
+  
+
+    
+word_list = ['python', 'java', 'kotlin', 'javascript']
+system_choice = random.choice(word_list)
+user_guess_list = list()
+wrong_user_guess_list = list()
+number_of_guess = 8
+def print_hidden_word(system_choice, user_guess_list):
+    for i in system_choice:
+        if i not in user_guess_list:
+            system_choice = system_choice.replace(i, '-')
+    print(system_choice)
+            
+# print('-' * len(system_choice))
+start_con = input()
+if start_con == 'quit':
+    number_of_guess = 0
+elif start_con == 'play':
+    while number_of_guess > 0:
+        hidden_choice = system_choice
+        print()
+        print_hidden_word(hidden_choice, user_guess_list)
+        if len(user_guess_list) == len(system_choice):
+            print('You guessed the word!')
+            print('You survived!')
+            break
+
+        user_guess = input('Input a letter: ')
+        if len(user_guess) != 1:
+            print('You should input a single letter') 
+        elif not user_guess.islower():
+            print('It is not an ASCII lowercase letter')   
+        elif user_guess in system_choice:
+            if user_guess not in user_guess_list:
+                user_guess_list.append(user_guess)
+            else:
+                print('You already typed this letter')
+        else:
+            if user_guess in wrong_user_guess_list:
+                print('You already typed this letter')
+            else:    
+                wrong_user_guess_list.append(user_guess)
+                print('No such letter in the word')
+                number_of_guess -= 1
+        if number_of_guess == 0:
+            if len(user_guess_list) == len(system_choice):
+                print('You guessed the word!')
+                print('You survived!')
+                break
+            else:
+                print('You are hanged!')
+                break
+        
+
+
+                
+    
